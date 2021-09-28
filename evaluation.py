@@ -15,8 +15,8 @@ for i in range(1, 4):
     results = torch.load("DyAd_" + str(i) + ".pt")
     rmse, preds, trues = results["future"]
     rmse2, preds2, trues2 = results["domain"]
-    rmse_future = np.mean(np.sqrt(np.mean((preds - trues).reshape(20,-1,5,20,64,64)**2, axis = (1,2,3,4,5)))*(1/mag_factors[train_factors-1]))
-    rmse_domain = np.mean(np.sqrt(np.mean((preds2 - trues2).reshape(5,-1,5,20,64,64)**2, axis = (1,2,3,4,5)))*(1/mag_factors[test_factors-1]))
+    rmse_future = np.mean(np.sqrt(np.mean((preds - trues).reshape(20,-1,50,20,64,64)**2, axis = (1,2,3,4,5)))*(1/mag_factors[train_factors-1]))
+    rmse_domain = np.mean(np.sqrt(np.mean((preds2 - trues2).reshape(5,-1,50,20,64,64)**2, axis = (1,2,3,4,5)))*(1/mag_factors[test_factors-1]))
     E1.append(rmse_future)
     E2.append(rmse_domain)
     
