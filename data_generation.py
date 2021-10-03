@@ -60,7 +60,7 @@ os.mkdir(rawdata_direc)
 preprocessed_direc = "sliced_data/"
 os.mkdir(preprocessed_direc)
 
-# Resolution
+Resolution
 res = [64, 64]
 for i in range(1,26):
     buoyancy_factor = i
@@ -94,77 +94,14 @@ std_vec = torch.std(torch.sqrt(dataset[...,0]**2 + dataset[...,1]**2))
 
 # Use sliding window to generate samples for training.
 vor = []
-for file in sorted(os.listdir(rawdata_direc)):
-    os.mkdir(preprocessed_direc + file[:-3])
-    data = torch.load(rawdata_direc + file)
+for i in range(1,26):
+    os.mkdir(preprocessed_direc + "data" + str(i))
+    data = torch.load(rawdata_direc + "data" + str(i) + ".pt")
     data = (data - avg_vec)/std_vec
     # Calculate the mean vorticity of the training set of each task
     vor.append(torch.mean(torch.abs(vorticity(data[:350,:,:,0], data[:350,:,:,1]))).numpy().item())
-    for i in range(0, len(data) - 50):
-        torch.save(data[i:i+50].transpose(-1,-2).transpose(-2,-3).float(), preprocessed_direc + file[:-3] + "/" + "sample_" + str(i) + ".pt")
+    for j in range(0, len(data) - 50):
+        torch.save(data[j:j+50].transpose(-1,-2).transpose(-2,-3).float(), preprocessed_direc + "data" + str(i) + "/" + "sample_" + str(j) + ".pt")
         
 # Save Task Parameter
 np.save("task_parameter_vorticity_turbulence.npy", vor)
-
-
-
-
-
-
-
-
-### Code for generating ocean current and sea temperature dynamics #####
-# nc = Dataset('raw_data')
-# data_u = np.array([nc['uo'][i].filled() for i in range(len(nc['uo']))]).transpose(0,2,3,1)
-# data_v = np.array([nc['vo'][i].filled() for i in range(len(nc['vo']))]).transpose(0,2,3,1)
-# data = torch.cat([torch.from_numpy(data_u), torch.from_numpy(data_v)], dim = 3).float()[:,:320,:320]
-# avg = torch.mean(data[:365], dim = (0,1,2), keepdim = True)
-# std = torch.std(torch.sqrt(data[:365,:,:,0]**2 + data[:365,:,:,1]**2))
-# data_norm = ((data - avg)/std).permute(0,3,1,2)
-
-# vor_field = vorticity(data_norm[:,0], data_norm[:,1])
-# vor = torch.zeros(25)
-# f = 0
-# for i in range(5):
-#     for j in range(5):
-#         vor[f] = torch.mean(torch.abs(vor_field[:365,i*64:(i+1)*64, j*64:(j+1)*64]))
-#         f += 1
-# vor = vor.reshape(5,5)
-
-
-# direc = '.../Data/OC/data'
-# f = 0
-# for i in range(5):
-#     for j in range(5):
-#         f += 1
-#         os.mkdir(direc + str(f))
-#         num = 0
-#         for t in range(500):
-#             torch.save(data_norm[t:t+50, :, 64*i:64*(i+1), 64*j:64*(j+1)].double().float(), direc + str(f) + "/sample_" + str(num) + ".pt")
-#             num += 1
-            
-            
-# data_t = np.array([nc['thetao'][i].filled() for i in range(len(nc['uo']))]).transpose(0,2,3,1)
-# data = torch.from_numpy(data_t).float()[:,:320,:320]
-# avg = torch.mean(data[:365], dim = (0,1,2), keepdim = True)
-# std = torch.std(data[:365])
-# data_norm = ((data - avg)/std).permute(0,3,1,2)
-
-# temp = torch.zeros(25)
-# f = 0
-# for i in range(5):
-#     for j in range(5):
-#         temp[f] = torch.mean(data_norm[:365,:,i*64:(i+1)*64, j*64:(j+1)*64])
-#         f += 1
-# temp = temp.reshape(5,5)
-
-# direc = '.../Data/SST/data'
-# f = 0
-# for i in range(5):
-#     for j in range(5):
-#         f += 1
-#         os.mkdir(direc + str(f))
-#         num = 0
-#         for t in range(500):
-#             torch.save(data_norm[t:t+50, :, 64*i:64*(i+1), 64*j:64*(j+1)].double().float(), direc + str(f) + "/sample_" + str(num) + ".pt")
-#             num += 1
