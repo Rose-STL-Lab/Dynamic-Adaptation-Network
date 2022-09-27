@@ -2,18 +2,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from torch.utils import data
-import itertools
-import re
-import random
-import time
-from torch.autograd import Variable
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-import warnings
-warnings.filterwarnings("ignore")
 
 
 def get_lr(optimizer):
