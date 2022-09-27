@@ -40,7 +40,7 @@ python evaluation.py
 
 ## Cite
 ```
-@article{wang2021meta,
+@article{wang2022meta,
 title={Meta-learning dynamics forecasting using task inference},
 author={Rui Wang and Robin Walters and Rose Yu},
 journal={Neural Information Processing Systems},
