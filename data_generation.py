@@ -7,8 +7,6 @@ from phi.flow import *
 import pylab
 import os
 import progressbar
-import warnings
-warnings.filterwarnings("ignore")
 
 # Function for calculating the vorticity
 def vorticity(u,v):
@@ -60,7 +58,7 @@ os.mkdir(rawdata_direc)
 preprocessed_direc = "sliced_data/"
 os.mkdir(preprocessed_direc)
 
-Resolution
+#Resolution
 res = [64, 64]
 for i in range(1,26):
     buoyancy_factor = i
