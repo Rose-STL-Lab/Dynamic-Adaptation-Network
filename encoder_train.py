@@ -1,8 +1,6 @@
-from __future__ import unicode_literals, print_function, division
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import matplotlib.pyplot as plt
 import torch.nn.functional as F
 import numpy as np
 from torch.utils import data
@@ -12,8 +10,6 @@ from torch.autograd import Variable
 from utils import train_epoch, eval_epoch, Dataset, get_lr
 from models import Encode_Style_3D
 import random
-import warnings
-warnings.filterwarnings("ignore")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
