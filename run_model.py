@@ -1,18 +1,12 @@
 import torch
 import torch.nn as nn
-import torch
-import torch.nn as nn
 import torch.optim as optim
-import matplotlib.pyplot as plt
 import torch.nn.functional as F
 import numpy as np
 from torch.utils import data
 import time
-from torch.autograd import Variable
 from utils import train_epoch, eval_epoch, Dataset, get_lr
 from models import DyAd_ResNet, DyAd_Unet
-import warnings
-warnings.filterwarnings("ignore")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(torch.cuda.device_count())
 
