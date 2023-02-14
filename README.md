@@ -9,7 +9,7 @@ Current deep learning models for dynamics forecasting struggle with generalizati
 * python 3.6
 * pytorch >= 1.0.0
 * matplotlib
-* phiflow v1.5
+* PhiFlow v1.0.1
 
 ## Setup
 Install PhiFlow v1.0.1 and place the data_generation.py in the downloaded PhiFlow folder.
